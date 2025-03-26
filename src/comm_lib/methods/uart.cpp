@@ -69,7 +69,6 @@ UART::onInit() {
   tty.c_oflag &= ~ONLCR;
   tty.c_cc[VTIME] = 10;
   tty.c_cc[VMIN] = 0;
-
   if (tcsetattr(this->_fd, TCSANOW, &tty) != 0)
   {
     throw CommError(std::string("failed set attr | error :") + strerror(errno));
@@ -87,7 +86,7 @@ UART::_write(const void * data, size_t size) {
 }
 
 size_t
-UART::_read(void * destination, std::chrono::milliseconds timeout, size_t size) {
+UART::_read(void * destination, std::chrono::milliseconds, size_t size) {
   return ::read(this->_fd, destination, size);
 }
 

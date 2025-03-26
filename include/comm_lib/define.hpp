@@ -18,8 +18,8 @@
                                                   return *this; \
                                                 }
 
-#define __COMMLIB_BUILDER_ESSENTIAL__AUTOSTART(BULDER_CLASS) BULDER_CLASS setAutoStart(bool value){ \
-                                                  this->_option->_auto_start = value; \
+#define __COMMLIB_BUILDER_ESSENTIAL__AUTOINIT(BULDER_CLASS) BULDER_CLASS setAutoInit(bool value){ \
+                                                  this->_option->_auto_init = value; \
                                                   return *this; \
                                                 }
                                             
@@ -32,7 +32,7 @@
   __COMMLIB_BUILDER_ESSENTIAL__BUILDER(BULDER_CLASS) \
   __COMMLIB_BUILDER_ESSENTIAL__TIMEOUT(BULDER_CLASS) \
   __COMMLIB_BUILDER_ESSENTIAL__SYSPOLL(BULDER_CLASS) \
-  __COMMLIB_BUILDER_ESSENTIAL__AUTOSTART(BULDER_CLASS) \
+  __COMMLIB_BUILDER_ESSENTIAL__AUTOINIT(BULDER_CLASS) \
   __COMMLIB_BUILDER_ESSENTIAL__LOGLEVEL(BULDER_CLASS)
 
 
@@ -49,7 +49,7 @@
 }
 
 #define COMLIB_COMM_ESSENTIALS_PRIVATE(OPTION_CLASS) \
-  __COMMLIB_COMM_ESSENTIAL__OPTION(OPTION_CLASS) \ 
+  __COMMLIB_COMM_ESSENTIAL__OPTION(OPTION_CLASS) \
   __COMMLIB_COMM_ESSENTIAL__GET_RAW_OPTION
 #endif
 

@@ -49,13 +49,14 @@ class UARTOption : public Option
 };
 
 class UARTBuilder;
+
 class UART : public Comm
 {
   public:
     using Builder = UARTBuilder;
     COMLIB_COMM_ESSENTIALS_PUBLIC(UARTOption)
 
-    ~UART();
+    ~UART() override final;
 
     const std::string getType() const override final {
       return "UART";

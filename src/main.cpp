@@ -8,7 +8,7 @@ void Callback(const char data) {
   std::cout<<data<<std::endl;
 }
 
-int main(int argc, char const *argv[])
+int main(int, char const *[])
 {
   using namespace comm_lib;
   using namespace std::chrono_literals;
@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     std::shared_ptr<Comm> comm = methods::UART::Builder()
       .setTimeout(1s)
       .setBaudRate(100)
-      .setAutoStart(true)
+      .setAutoInit(true)
       .setSysPoll(false)
       .setLogLevel(2)
       .setPort("/dev/ttys009")

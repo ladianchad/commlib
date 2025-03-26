@@ -26,7 +26,7 @@ namespace comm_lib
   class Option
   {
     public:
-      ~Option() = default;
+      virtual ~Option() = default;
 
       template<typename O, typename C>
       friend class CommBuilder;
@@ -45,7 +45,7 @@ namespace comm_lib
 
       bool getSysPoll() const;
 
-      bool getAutoStart() const;
+      bool getAutoInit() const;
 
       bool getThreading() const;
 
@@ -60,7 +60,7 @@ namespace comm_lib
     protected:
       std::chrono::milliseconds _timeout;
       bool _syspoll = true;
-      bool _auto_start = true;
+      bool _auto_init = true;
       bool _threading = false;
       uint8_t _log_level = 0;
   };
@@ -75,10 +75,11 @@ namespace comm_lib
   class Comm
   {
   public:
-
+    friend class Executer;
+    
+    virtual ~Comm() = default;
+    
     void init();
-
-    void start();
 
     size_t write(const void * data, size_t size = -1);
 
@@ -166,8 +167,8 @@ class CommBuilder
       return *this;
     }
 
-    CommBuilder<C> setAutoStart(bool value){
-      this->_option->_auto_start = value;
+    CommBuilder<C> setAutoInit(bool value){
+      this->_option->_auto_init = value;
       return *this;
     }
 
@@ -178,11 +179,9 @@ class CommBuilder
 
     const std::shared_ptr<Comm> & build() const {
       const std::shared_ptr<Comm> & result = CommSingleton::create<O, C>(this->_option);
-      if(this->_option->getAutoStart()){
+      if(this->_option->getAutoInit()){
         result->init();
-        if(this->_option->getSysPoll()){
-          result->start();
-        } else if(!this->_option->getSysPoll()){
+        if(!this->_option->getSysPoll()){
           result->init();
           std::cout<<"Auto start is setted but syspoll is not setted. No thead will be created."<<std::endl;
         }

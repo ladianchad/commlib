@@ -29,8 +29,8 @@ Option::getSysPoll() const {
 }
 
 bool
-Option::getAutoStart() const {
-  return this->_auto_start;
+Option::getAutoInit() const {
+  return this->_auto_init;
 }
 
 bool
@@ -42,7 +42,7 @@ const std::string
 Option::toString() const {
   std::string result;
   result += "use system polling : " + std::string(this->_syspoll ? "true" : "false") + "\n";
-  result += "auto start : " + std::string(this->_auto_start ? "true" : "false") + "\n";
+  result += "auto initialize : " + std::string(this->_auto_init ? "true" : "false") + "\n";
   result += "log level : " + std::to_string(this->_log_level) + "\n";
   result += "timeout : " + std::to_string(this->_timeout.count()) + " ms";
   return result;
@@ -60,18 +60,6 @@ Comm::init() {
     this->onInit();
     std::cout<<"Initialized.\n";
     *this->_init = true;
-  }
-};
-
-void
-Comm::start() {
-  if(*this->_start){
-    std::cout<<"Main Thread already started. Skip."<<std::endl;
-  } else {
-    std::cout<<"Start main thread."<<std::endl;
-    this->onStart();
-    std::cout<<"Main Thread started.\n";
-    *this->_start = true;
   }
 };
 
